@@ -1,0 +1,93 @@
+<div class="signup-section m-auto">
+  <div class="signup-container m-auto col-lg-5 col-md-7 col-sm-11 col-12 p-5">
+    <p class="signup-title">SIGN UP</p>
+    <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm)">
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Name"
+        />
+        @if(signupForm.get('name')?.errors !== null &&
+        signupForm.get('name')?.touched){
+        <div class="text-danger my-1">
+          @if(signupForm.get('name')?.errors?.['required']){
+          <p class="err ms-1">Name is required</p>
+          } @if(signupForm.get('name')?.errors?.['minlength'] ||
+          signupForm.get('name')?.errors?.['maxlength']) {
+          <p class="err ms-1">Name should be between 7 and 20</p>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-3">
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Email"
+        />
+        @if(signupForm.get('email')?.errors !== null &&
+        signupForm.get('email')?.touched){
+        <div class="text-danger my-1">
+          @if(signupForm.get('email')?.errors?.['required']){
+          <p class="err ms-1">Email is required</p>
+          } @if(signupForm.get('email')?.errors?.['email']) {
+          <p class="err ms-1">Invalid email</p>
+          }
+        </div>
+        } @if(emailError){
+        <div class="text-danger my-1">
+          <p class="err">{{ emailError }}</p>
+        </div>
+        }
+      </div>
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Password"
+        />
+        @if(signupForm.get('password')?.errors !== null &&
+        signupForm.get('password')?.touched){
+        <div class="text-danger my-1">
+          @if(signupForm.get('password')?.errors?.['required']){
+          <p class="err ms-1">Password is required</p>
+          } @if(signupForm.get('password')?.errors?.['minlength'] ||
+          signupForm.get('password')?.errors?.['maxlength']){
+          <p class="err ms-1">Password should be between 8 and 20</p>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="confirmPassword"
+          placeholder="Confirm Password"
+        />
+        @if(signupForm.get('confirmPassword')?.errors !== null &&
+        signupForm.get('confirmPassword')?.touched){
+        <div class="text-danger my-1">
+          @if(signupForm.get('confirmPassword')?.errors?.['required']){
+          <p class="err ms-1">Password is required</p>
+          } @if(signupForm.get('confirmPassword')?.errors?.['minlength'] ||
+          signupForm.get('confirmPassword')?.errors?.['maxlength']){
+          <p class="err ms-1">Password should be between 8 and 20</p>
+          }
+        </div>
+        } @if(passwordError){
+        <div class="text-danger my-1">
+          <p class="err">{{ passwordError }}</p>
+        </div>
+        }
+      </div>
+      <div class="btn-cont mt-2" >
+        <button class="form-control signup-btn m-auto" [disabled]="signupForm.invalid">SignUp</button>
+      </div>
+    </form>
+  </div>
+</div>

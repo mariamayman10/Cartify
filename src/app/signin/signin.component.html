@@ -1,0 +1,51 @@
+<div class="signin-section m-auto">
+  <div class="signin-container m-auto col-lg-5 col-md-7 col-sm-11 col-12 p-5">
+    <p class="signin-title">SIGN UP</p>
+    <form [formGroup]="signinForm" (ngSubmit)="signIn(signinForm)">
+      <div class="mb-3">
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Email"
+        />
+        @if(signinForm.get('email')?.errors !== null &&
+        signinForm.get('email')?.touched){
+        <div class="text-danger my-1">
+          @if(signinForm.get('email')?.errors?.['required']){
+          <p class="err ms-1">Email is required</p>
+          } @if(signinForm.get('email')?.errors?.['email']) {
+          <p class="err ms-1">Invalid email</p>
+          }
+        </div>
+        } @if(invalidSignIn){
+        <div class="text-danger my-1">
+          <p class="err">{{ invalidSignIn }}</p>
+        </div>
+        }
+      </div>
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Password"
+        />
+        @if(signinForm.get('password')?.errors !== null &&
+        signinForm.get('password')?.touched){
+        <div class="text-danger my-1">
+          @if(signinForm.get('password')?.errors?.['required']){
+          <p class="err ms-1">Password is required</p>
+          } @if(signinForm.get('password')?.errors?.['minlength'] ||
+          signinForm.get('password')?.errors?.['maxlength']){
+          <p class="err ms-1">Password should be between 8 and 20</p>
+          }
+        </div>
+        }
+      </div>
+      <div class="btn-cont mt-2" >
+        <button class="form-control signin-btn m-auto" [disabled]="signinForm.invalid">SignIn</button>
+      </div>
+    </form>
+  </div>
+</div>

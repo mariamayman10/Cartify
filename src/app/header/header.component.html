@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-md px-lg-4 px-md-4 px-2 py-3">
+  <div class="container-fluid d-flex justify-content-between">
+    <a class="navbar-brand">CARTIFY</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="d-flex me-auto">
+        <li
+          class="nav-item screen-item me-2"
+          [ngClass]="{ 'selected-item': selectedNav === 'home' }"
+        >
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="home"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            (click)="selectNav('home')"
+            >HOME</a
+          >
+        </li>
+        <li
+          class="nav-item screen-item me-2"
+          [ngClass]="{ 'selected-item': selectedNav === 'shop' }"
+        >
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="home"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            (click)="selectNav('shop')"
+            >SHOP</a
+          >
+        </li>
+        <li
+          class="nav-item screen-item"
+          [ngClass]="{ 'selected-item': selectedNav === 'offers' }"
+        >
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="home"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            (click)="selectNav('offers')"
+            >OFFERS</a
+          >
+        </li>
+      </div>
+      <div class="">
+        <div class="d-flex mb-2 mb-lg-0">
+          @if(!isLogin){
+          <li class="nav-item screen-item me-2">
+            <a class="nav-link" aria-current="page" routerLink="signin"
+              >SignIn</a
+            >
+          </li>
+          <li class="nav-item screen-item signup-btn">
+            <a class="nav-link" aria-current="page" routerLink="signup"
+              >SignUp</a
+            >
+          </li>
+          } @if(isLogin){
+          <li class="nav-item me-4">
+            <i class="fa-solid fa-bag-shopping"></i>
+          </li>
+          <li class="nav-item me-4">
+            <i class="fa-solid fa-user"></i>
+          </li>
+          <li class="nav-item logout-btn">
+            <a class="nav-link" (click)="logout()" aria-current="page"
+              >Logout</a
+            >
+          </li>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

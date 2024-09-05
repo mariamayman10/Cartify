@@ -1,0 +1,44 @@
+.signin-section {
+  padding-top: 120px;
+}
+.signin-container {
+  background-color: #eeebeb;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+.signin-title {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+.btn-cont {
+  width: fit-content;
+  margin-left: auto;
+}
+.signin-btn {
+  width: 120px;
+  height: 35px;
+  background-color: #001a2e;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+.signin-btn:disabled {
+  background-color: #5c5c5c;
+}
+.err {
+  font-weight: 200;
+  font-size: 13px;
+}
