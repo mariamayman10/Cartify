@@ -1,0 +1,54 @@
+<div class="wishlist pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3">
+  @if(wishlist.length > 0){
+  <p class="wishlist-title pt-5">Wishlist</p>
+  <div class="products d-flex flex-wrap m-auto justify-content-center">
+    @for(product of wishlist; track product._id){
+    <div class="product pt-3 my-2 ms-2">
+      <div class="product-img m-auto">
+        <img [src]="imgDomain + product.cover" [alt]="product.name" />
+        <div class="over-icons">
+          <i
+            class="fa-solid fa-trash-can my-2"
+            (click)="removeProductFromWishlist(product._id)"
+          ></i>
+          <i class="fa-solid fa-eye mt-1" (click)="viewProductDetails(product._id)"></i>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-name mt-2 mb-1 px-3">{{ product.name }}</p>
+        <p class="product-description mt-2 mb-1 px-3">
+          {{ product.description | description : 7 }}
+        </p>
+        <div class="product-prices d-flex px-3">
+          <p class="product-price mb-4">{{ product.price | currency }}</p>
+          @if(product.priceAfterDiscount){
+          <span class="product-price-discount">
+            &nbsp;
+            {{ product.priceAfterDiscount }}</span
+          >
+          }
+        </div>
+        <div class="pb-3 last-row w-100 d-flex justify-content-between px-3">
+          <button class="cart-btn" (click)="addProductToCart(product._id)">
+            Add to Cart
+          </button>
+          <span class="ms-auto"
+            ><i class="fa-solid fa-star"></i> {{ product.ratingAverage }}</span
+          >
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="wishlist-empty-div col-lg-5 col-md-6 col-11 m-auto mt-4">
+    <img
+      src="images/empty-wishlist.png"
+      class="wishlist-empty-img d-block w-100 mt-4"
+    />
+    <p class="wishlist-empty pt-5 text-center">
+      Wishlist is Empty, Continue shopping!
+    </p>
+  </div>
+  }
+</div>

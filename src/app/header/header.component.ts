@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthenticationService } from '../services/authenticationService';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-header',

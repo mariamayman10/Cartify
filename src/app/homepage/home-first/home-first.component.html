@@ -1,0 +1,21 @@
+<swiper-container
+autoplay-delay="3000"
+autoplay="true"
+  loop="true"
+  id="intro-swiper-container"
+  class="col-12 intro-swiper bg-dark"
+>
+  @for(slide of data; track slide.id){
+  <swiper-slide class="intro-slide pt-3">
+    <div class="img-div">
+      <img [src]="slide.image" alt="slide-img" />
+    </div>
+    <div class="text-div">
+      <p class="par-1">{{ slide.title }}</p>
+      <p class="par-2">
+        {{ slide.description }}
+      </p>
+    </div>
+  </swiper-slide>
+  }
+</swiper-container>

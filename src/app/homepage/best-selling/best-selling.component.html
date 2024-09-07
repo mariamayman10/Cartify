@@ -1,0 +1,67 @@
+<div class="best-selling-section px-lg-4 px-md-3 px-sm-2 px-1 pt-5 m-auto pb-5">
+  <div class="d-flex justify-content-between px-3">
+    <div class="d-flex">
+      <div class="box"></div>
+      &nbsp;&nbsp;
+      <p class="section-title">Best Selling</p>
+    </div>
+
+    <div class="custom-arrows">
+      <button class="swiper-button-prev-custom arrow-btn" (click)="getPrev()">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+      &nbsp;&nbsp;
+      <button class="swiper-button-next-custom arrow-btn" (click)="getNext()">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <swiper-container
+    id="bestselling-swiper-container"
+    class="swiper px-3"
+    slides-per-view="auto"
+    space-between="20"
+  >
+    @for(product of products; track product._id){
+    <swiper-slide class="product pt-3 my-2 ms-2">
+      <div class="product-img m-auto">
+        <img [src]="imgDomain + product.cover" [alt]="product.name" />
+        <div class="over-icons">
+          <i
+            class="fa-solid fa-heart my-2"
+            (click)="addProductToWishlist(product._id)"
+          ></i>
+          <i
+            class="fa-solid fa-eye mt-1"
+            (click)="viewProductDetails(product._id)"
+          ></i>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-name mt-2 mb-1 px-3">{{ product.name }}</p>
+        <p class="product-description mt-2 mb-1 px-3">
+          {{ product.description | description : 7 }}
+        </p>
+        <div class="product-prices d-flex px-3">
+          <p class="product-price mb-4">{{ product.price | currency }}</p>
+          @if(product.priceAfterDiscount){
+          <span class="product-price-discount">
+            &nbsp;
+            {{ product.priceAfterDiscount }}</span
+          >
+          }
+        </div>
+        <div class="pb-3 last-row w-100 d-flex justify-content-between px-3">
+          <button class="cart-btn" (click)="addProductToCart(product._id)">
+            Add to Cart
+          </button>
+          <span class="ms-auto"
+            ><i class="fa-solid fa-star"></i> {{ product.ratingAverage }}</span
+          >
+        </div>
+      </div>
+    </swiper-slide>
+    }
+  </swiper-container>
+</div>

@@ -1,7 +1,6 @@
-import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticationService } from '../services/authenticationService';
+import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,8 +12,8 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent {
   constructor(
-    private authService: AuthenticationService,
-    private router: Router
+    private _AuthenticationService: AuthenticationService,
+    private _Router: Router
   ) {}
 
   signupForm = new FormGroup({
@@ -43,17 +42,20 @@ export class SignupComponent {
   passwordError: string = '';
 
   signUp(formData: FormGroup){
-    this.authService.signUp(formData.value).subscribe((res) => {
-      if(res.token){
-        localStorage.setItem('token', res.token);
-        this.authService.saveCurrentUser();
+    this._AuthenticationService.signUp(formData.value).subscribe(
+      (res) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          this._AuthenticationService.saveCurrentUser();
+        }
+        this._Router.navigate(['/home']);
+      },
+      (err) => {
+        err.error.errors.map((error: any) => {
+          if (error.path === 'email') this.emailError = error.msg;
+          if (error.path === 'password') this.passwordError = error.msg;
+        });
       }
-      this.router.navigate(['/home']);
-    }, (err) => {
-      err.error.errors.map((error: any) => {
-        if (error.path === 'email') this.emailError = error.msg;
-        if (error.path === 'password') this.passwordError = error.msg;
-      });
-    })
+    );
   }
 }

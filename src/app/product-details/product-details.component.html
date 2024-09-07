@@ -1,0 +1,57 @@
+<div class="product-details pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3">
+  <div class="product mt-5 d-flex px-lg-5 px-md-4 px-sm-3 col-12">
+    <div class="imgs">
+      <img [src]="imgDomain + product.cover" class="product-cover mb-2" />
+      <div class="product-imgs d-flex">
+        @for(img of product.images; track img){
+        <img [src]="imgDomain + img" class="product-img" />
+        }
+      </div>
+    </div>
+    <div class="product-info">
+      <p class="product-name">{{ product.name }}</p>
+      <div class="product-stats d-flex">
+        <div class="product-rate me-3">
+          <ng-container *ngFor="let _ of [].constructor(fullStars)">
+            <i class="fas fa-star" style="color: #f5b214"></i>
+          </ng-container>
+          <ng-container *ngIf="halfStar">
+            <i class="fas fa-star-half-alt" style="color: #f5b214"></i>
+          </ng-container>
+          <ng-container *ngFor="let _ of [].constructor(emptyStars)">
+            <i class="far fa-star" style="color: #f5b214"></i>
+          </ng-container>
+
+          <span>({{ product.ratingAverage }})</span>
+        </div>
+        <p class="product-reviews me-3">623 Reviews</p>
+        <p class="product-sold">{{ product.sold }} Sold</p>
+      </div>
+      <p class="title">Price</p>
+      <div class="product-prices d-flex">
+        <p
+          class="product-price me-3"
+          [ngClass]="{ strikethrough: product.priceAfterDiscount }"
+        >
+          {{ product.price | currency }}
+        </p>
+        <p class="product-price-discount">
+          {{ product.priceAfterDiscount | currency }}
+        </p>
+      </div>
+      <p class="title">Description</p>
+      <p class="product-desc">{{ product.description }}</p>
+      <div class="product-btns">
+        <button class="add-cart me-2" (click)="addProdutToCart()">
+          <i class="fa-solid fa-bag-shopping"></i> &nbsp; Add to Cart
+        </button>
+        <button class="add-wishlist" (click)="addProductToWishlist()">
+          <i class="fa-solid fa-heart my-2"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="product-reviews px-lg-5 px-md-4 px-sm-3">
+    <p class="reviews-title">Reviews</p>
+  </div>
+</div>

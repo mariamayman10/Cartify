@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-md px-lg-4 px-md-4 px-2 py-3">
+<nav class="navbar navbar-expand-sm px-lg-4 px-md-4 px-2 fixed-top">
   <div class="container-fluid d-flex justify-content-between">
-    <a class="navbar-brand">CARTIFY</a>
+    <div class="navbar-brand-div">
+      <a class="navbar-brand m-0">CARTIFY</a>
+    </div>
     <button
       class="navbar-toggler"
       type="button"
@@ -12,72 +14,101 @@
     >
       <i class="fa-solid fa-bars"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="d-flex me-auto">
-        <li
-          class="nav-item screen-item me-2"
-          [ngClass]="{ 'selected-item': selectedNav === 'home' }"
-        >
-          <a
-            class="nav-link"
-            aria-current="page"
-            routerLink="home"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-            (click)="selectNav('home')"
-            >HOME</a
-          >
-        </li>
-        <li
-          class="nav-item screen-item me-2"
-          [ngClass]="{ 'selected-item': selectedNav === 'shop' }"
-        >
-          <a
-            class="nav-link"
-            aria-current="page"
-            routerLink="home"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-            (click)="selectNav('shop')"
-            >SHOP</a
-          >
-        </li>
-        <li
-          class="nav-item screen-item"
-          [ngClass]="{ 'selected-item': selectedNav === 'offers' }"
-        >
-          <a
-            class="nav-link"
-            aria-current="page"
-            routerLink="home"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-            (click)="selectNav('offers')"
-            >OFFERS</a
-          >
-        </li>
-      </div>
-      <div class="">
-        <div class="d-flex mb-2 mb-lg-0">
+    <div
+      class="collapse navbar-collapse col-lg-7 col-md-9 col-9 pt-0"
+      id="navbarSupportedContent"
+    >
+      <div class="links-container col-12 d-flex">
+        <div class="m-auto">
+          <div class="links-1 px-1 m-auto">
+            <li
+              class="nav-item screen-item me-lg-5 me-md-3 me-1"
+              [ngClass]="{ 'selected-item': selectedNav === 'home' }"
+            >
+              <a
+                class="nav-link"
+                aria-current="page"
+                routerLink="home"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+                (click)="selectNav('home')"
+                >HOME</a
+              >
+            </li>
+            <li
+              class="nav-item screen-item me-lg-5 me-md-3 me-1"
+              [ngClass]="{ 'selected-item': selectedNav === 'products' }"
+            >
+              <a
+                class="nav-link"
+                aria-current="page"
+                routerLink="products"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+                (click)="selectNav('products')"
+                >PRODUCTS</a
+              >
+            </li>
+            <li
+              class="nav-item screen-item ps-0 ms-0"
+              [ngClass]="{ 'selected-item': selectedNav === 'offers' }"
+            >
+              <a
+                class="nav-link"
+                aria-current="page"
+                routerLink="home"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+                (click)="selectNav('offers')"
+                >OFFERS</a
+              >
+            </li>
+          </div>
+        </div>
+        <div class="links-2">
           @if(!isLogin){
-          <li class="nav-item screen-item me-2">
-            <a class="nav-link" aria-current="page" routerLink="signin"
+          <li
+            class="nav-item me-3"
+            [ngClass]="{ 'selected-item': selectedNav === 'signin' }"
+          >
+            <a
+              class="nav-link px-0"
+              aria-current="page"
+              routerLink="signin"
+              (click)="selectNav('signin')"
               >SignIn</a
             >
           </li>
-          <li class="nav-item screen-item signup-btn">
-            <a class="nav-link" aria-current="page" routerLink="signup"
+          <li
+            class="nav-item signup-btn"
+            [ngClass]="{ 'selected-item': selectedNav === 'signup' }"
+          >
+            <a
+              class="nav-link px-0"
+              aria-current="page"
+              routerLink="signup"
+              (click)="selectNav('signup')"
               >SignUp</a
             >
           </li>
           } @if(isLogin){
-          <li class="nav-item me-4">
-            <i class="fa-solid fa-bag-shopping"></i>
+          <li class="nav-item nav-icon me-3">
+            <a routerLink="cart" class="nav-link px-0">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </a>
           </li>
-          <li class="nav-item me-4">
-            <i class="fa-solid fa-user"></i>
+          <li class="nav-item nav-icon me-3">
+            <a routerLink="wishlist" class="nav-link px-0">
+              <i class="fa-solid fa-heart"></i>
+            </a>
           </li>
-          <li class="nav-item logout-btn">
+          <li class="nav-item nav-icon me-1">
+            <a routerLink="" class="nav-link px-0">
+              <i class="fa-solid fa-user"></i>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link" (click)="logout()" aria-current="page"
               >Logout</a
             >

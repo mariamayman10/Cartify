@@ -1,0 +1,123 @@
+.product-details {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+.product {
+  .imgs {
+    .product-cover {
+      width: 320px;
+      height: 320px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+    }
+    .product-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+    }
+  }
+  .product-info {
+    padding-left: 20px;
+    .product-name {
+      font-size: 30px;
+      font-weight: 600;
+    }
+    .product-stats {
+      color: #888888;
+      .product-reviews,
+      .product-sold {
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
+    .product-prices {
+      .product-price,
+      .product-price-discount {
+        font-size: 25px;
+        font-weight: 500;
+      }
+    }
+    .product-btns {
+      .add-cart {
+        width: 300px;
+        height: 42px;
+        border: none;
+        background-color: #000;
+        color: #fcfcfc;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+      }
+      .add-wishlist {
+        width: 45px;
+        height: 42px;
+        border: none;
+        background-color: #f5b214;
+        color: #fcfcfc;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+      }
+    }
+  }
+}
+.title {
+  font-size: 15px;
+  color: #888888;
+}
+.strikethrough {
+  text-decoration: line-through;
+}
+@media (max-width: 807px) {
+  .add-cart {
+    background-color: #f5b214;
+    width: 240px !important;
+  }
+}
+@media (max-width: 339px) {
+  .imgs {
+    margin: auto;
+  }
+  .product-cover {
+    width: 300px !important;
+    height: 300px !important;
+  }
+  .product-img {
+    width: 56px !important;
+    height: 56px !important;
+  }
+}
+@media (max-width: 703px) {
+  .product-info {
+    margin-top: 24px;
+    width: 100% !important;
+  }
+  .product {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .add-cart {
+    width: 190px !important;
+  }
+}
+.product-imgs .product-img:not(:last-child) {
+  margin-right: 5px;
+}
+
+.reviews-title{
+  margin-top: 30px;
+    font-size: 24px;
+  font-weight: 600;
+  color: #888888;
+}
