@@ -5,10 +5,17 @@ import { CartService } from '../services/cart.service';
 import { WishlistService } from '../services/wishlist.service';
 import { ActivatedRoute } from '@angular/router';
 import { CurrencyPipe, CommonModule } from '@angular/common';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ReviewsService } from '../services/reviews.service';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CurrencyPipe, CommonModule],
+  imports: [CurrencyPipe, CommonModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
@@ -16,10 +23,10 @@ import { CurrencyPipe, CommonModule } from '@angular/common';
 export class ProductDetailsComponent implements OnInit {
   constructor(
     private _ActivatedRoute: ActivatedRoute,
-    private _AuthenticationService: AuthenticationService,
     private _ProductsService: ProductsService,
     private _WishlistService: WishlistService,
-    private _CartService: CartService
+    private _CartService: CartService,
+    private _ReviewsService: ReviewsService
   ) {}
 
   subscription: any;
@@ -29,30 +36,63 @@ export class ProductDetailsComponent implements OnInit {
   fullStars: number = 0;
   halfStar: boolean = false;
   emptyStars: number = 5;
+  reviewError: string = '';
+  reviewForm = new FormGroup({
+    comment: new FormControl(null, [
+      Validators.required,
+      Validators.maxLength(100),
+    ]),
+    rate: new FormControl(null, [
+      Validators.required,
+      Validators.min(1),
+      Validators.max(5),
+    ]),
+  });
 
   ngOnInit(): void {
-    // this._AuthenticationService.checkToken();
     this.id = this._ActivatedRoute.snapshot.params['id'];
     this.imgDomain = this._ProductsService.imgDomain;
+    this.loadProduct();
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  loadProduct() {
     this.subscription = this._ProductsService
       .getOneProduct(this.id)
       .subscribe((res) => {
         this.product = res.data;
+        console.log(this.product);
         const rating = this.product.ratingAverage;
         this.fullStars = Math.floor(rating);
         this.halfStar = rating % 1 >= 0.5;
         this.emptyStars = 5 - this.fullStars - (this.halfStar ? 1 : 0);
       });
   }
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
   addProductToWishlist() {
-    this._WishlistService
-      .addProductToWishlist(this.id)
-      .subscribe((res) => {});
+    this._WishlistService.addProductToWishlist(this.id).subscribe((res) => {});
   }
   addProdutToCart() {
     this._CartService.addProductToCart(this.id).subscribe((res) => {});
+  }
+  addReview(productId: string, formData: FormGroup) {
+    console.log(formData);
+    this._ReviewsService.addReview(productId, formData.value).subscribe({
+      next: (res) => {
+        this.loadProduct();
+      },
+      error: (err) => {
+        if (err.error.errors) {
+          err.error.errors.map((error: any) => {
+            if (error.path === 'product') {
+              this.reviewError = error.msg;
+            }
+          });
+        } else {
+          this.reviewError = `Signin first to add a review`;
+        }
+      },
+    });
   }
 }

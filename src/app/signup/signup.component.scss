@@ -36,8 +36,8 @@
   font-weight: 500;
   font-size: 17px;
 }
-.btn-cont{
-  a{
+.btn-cont {
+  a {
     color: #f5b214;
   }
 }
@@ -65,13 +65,55 @@
   font-weight: 200;
   font-size: 13px;
 }
-.form-control{
-  font-size: 15px;
+.input-cont {
+  width: 250px;
+  position: relative;
+  margin: auto;
 }
-.form-control:focus {
-  border: 1px #f5b214 solid;
+.placeholder:hover {
+  cursor: auto;
+}
+.input {
+  font-family: "Poppins", sans-serif;
   outline: none;
-  box-shadow: none;
+  height: 40px;
+  width: 100%;
+  border-radius: 4px;
+  transition: 0.3s;
+  font-size: 12px;
+  border: 1px solid #8a8a8a;
+}
+.placeholder {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  transform: translateY(-50%);
+  padding-left: 4.5px;
+  padding-bottom: 2px;
+  font-size: 10px;
+  color: #858585;
+  background-color: transparent;
+  transition: 0.3s;
+  display: none;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+.input:focus + .placeholder {
+  display: block;
+}
+.input::placeholder {
+  transition: 0.3s;
+  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+}
+.input:focus::placeholder {
+  color: transparent;
+}
+.input:hover,
+.input:focus {
+  border-color: #f5b214;
 }
 @media (max-width: 576px) {
   .signup-gradient {

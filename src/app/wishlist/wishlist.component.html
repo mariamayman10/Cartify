@@ -1,6 +1,10 @@
 <div class="wishlist pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3">
   @if(wishlist.length > 0){
-  <p class="wishlist-title pt-5">Wishlist</p>
+  <div class="d-flex pt-5 mb-3">
+    <div class="box"></div>
+    &nbsp;&nbsp;
+    <p class="wishlist-title">Wishlist</p>
+  </div>
   <div class="products d-flex flex-wrap m-auto justify-content-center">
     @for(product of wishlist; track product._id){
     <div class="product pt-3 my-2 ms-2">
@@ -11,7 +15,10 @@
             class="fa-solid fa-trash-can my-2"
             (click)="removeProductFromWishlist(product._id)"
           ></i>
-          <i class="fa-solid fa-eye mt-1" (click)="viewProductDetails(product._id)"></i>
+          <i
+            class="fa-solid fa-eye mt-1"
+            (click)="viewProductDetails(product._id)"
+          ></i>
         </div>
       </div>
       <div class="product-info">

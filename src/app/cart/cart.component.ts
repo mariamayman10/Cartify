@@ -23,14 +23,17 @@ export class CartComponent {
     private _AuthenticationService: AuthenticationService
   ) {}
 
-  ngOnInit(): void {
-    this._AuthenticationService.checkToken();
-    this.imgDomain = this._ProductsService.imgDomain;
+  loadCart() {
     this.subscription = this._CartService.getCart().subscribe((res) => {
       this.cart = res.data;
       this.cartItems = res.data.cartItems;
-      console.log(this.cartItems);
     });
+  }
+
+  ngOnInit(): void {
+    this._AuthenticationService.checkToken();
+    this.imgDomain = this._ProductsService.imgDomain;
+    this.loadCart();
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

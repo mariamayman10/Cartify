@@ -1,15 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GlobalService } from './global.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  private hostName: string = 'http://localhost:3001';
-  private routeName: string = '/api/v1/products';
-  imgDomain: string = `${this.hostName}/products/`;
-  constructor(private _HttpClient: HttpClient) {}
+  private hostName: string = '';
+  private routeName: string = '';
+  imgDomain: string = '';
+  constructor(private _HttpClient: HttpClient, private _GlobalService: GlobalService) {
+    this.hostName = this._GlobalService.hostName;
+    this.routeName = this._GlobalService.productsRoute;
+    this.imgDomain = this._GlobalService.productImg;
+  }
 
   getProducts = (
     limit: number = 16,

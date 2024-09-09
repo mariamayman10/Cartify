@@ -102,10 +102,28 @@
               <i class="fa-solid fa-heart"></i>
             </a>
           </li>
-          <li class="nav-item nav-icon me-1">
-            <a routerLink="" class="nav-link px-0">
+          <li class="nav-item dropdown exception nav-icon me-1">
+            <a
+              routerLink=""
+              class="nav-link px-0 dropdown-toggle"
+              id="userDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <i class="fa-solid fa-user"></i>
             </a>
+            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+              <li>
+                <a class="dropdown-item" routerLink="profile">My Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="myReviews">My Reviews</a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="orders">My Orders</a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item">

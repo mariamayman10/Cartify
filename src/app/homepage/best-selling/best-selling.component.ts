@@ -40,12 +40,10 @@ export class BestSellingComponent implements OnInit, OnDestroy {
     private _ProductsService: ProductsService,
     private _CartService: CartService,
     private _WishlistService: WishlistService,
-    // private _AuthenticationService: AuthenticationService,
     private _Router: Router
   ) {}
 
   ngOnInit(): void {
-    // this._AuthenticationService.checkToken();
     this.imgDomain = this._ProductsService.imgDomain;
     this.subscription = this._ProductsService
       .getProducts(16, 1, '-sold', this.search)

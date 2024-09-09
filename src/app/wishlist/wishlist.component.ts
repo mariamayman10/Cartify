@@ -27,12 +27,16 @@ export class WishlistComponent implements OnInit {
   imgDomain: string = '';
   wishlist: any[] = [];
 
-  ngOnInit(): void {
-    this._AuthenticationService.checkToken();
-    this.imgDomain = this._ProductsService.imgDomain;
+  loadWishlist() {
     this.subscription = this._WishlistService.getWishlist().subscribe((res) => {
       this.wishlist = res.data.wishlist;
     });
+  }
+
+  ngOnInit(): void {
+    this._AuthenticationService.checkToken();
+    this.imgDomain = this._ProductsService.imgDomain;
+    this.loadWishlist();
   }
 
   addProductToCart(product: string) {
@@ -44,6 +48,7 @@ export class WishlistComponent implements OnInit {
       .subscribe((res) => {
         this.wishlist = res.data.wishlist;
       });
+    this.loadWishlist();
   };
   viewProductDetails(productId: string) {
     this._Router.navigate([`/products/${productId}`]);

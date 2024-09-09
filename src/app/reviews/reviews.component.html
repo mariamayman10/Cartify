@@ -1,0 +1,28 @@
+<div class="reviews pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3">
+  <div class="d-flex pt-5 mb-3">
+      <div class="box"></div>
+      &nbsp;&nbsp;
+      <p class="review-title">My Reviews</p>
+    </div>
+  @for(review of reviews; track review._id){
+  <div
+    class="review m-auto p-3 col-lg-6 col-md-7 col-sm-10 col-12 d-flex justify-content-start"
+  >
+    <img [src]="imgDomain + review?.product?.cover" class="product-img me-3" />
+    <div class="review-info pt-1 flex-grow-1">
+      <p class="product-name">{{ review?.product?.name }}</p>
+      <p class="comment me-2">
+        <span class="title">Comment<wbr></span> {{ review?.comment }}
+      </p>
+      <div class="d-flex justify-content-between flex-wrap">
+        <p class="rate"><span class="title">Rate</span> {{ review?.rate }}</p>
+
+        <div>
+          <i class="fas fa-pen me-3"></i>
+          <i class="fas fa-trash-alt" (click)="deleteReview(review._id)"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+</div>

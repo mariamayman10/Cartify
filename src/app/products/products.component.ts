@@ -47,7 +47,6 @@ export class ProductsComponent {
       .subscribe((res) => {
         this.products = res.data;
         this.pagination = res.pagination;
-        console.log(res);
       });
   }
 

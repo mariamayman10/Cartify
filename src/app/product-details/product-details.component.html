@@ -51,7 +51,50 @@
       </div>
     </div>
   </div>
-  <div class="product-reviews px-lg-5 px-md-4 px-sm-3">
+
+  <div class="product-reviews px-lg-5 px-md-4 px-sm-3 col-12">
     <p class="reviews-title">Reviews</p>
+    <form
+      [formGroup]="reviewForm"
+      (ngSubmit)="addReview(product._id, reviewForm)"
+    >
+      <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex">
+          <div class="input-cont me-3">
+            <input
+              type="text"
+              class="input px-3 m-auto mb-2"
+              formControlName="comment"
+              placeholder="Comment"
+            />
+            <label class="placeholder">Comment</label>
+          </div>
+          <div class="input-cont">
+            <input
+              type="number"
+              class="input px-3 m-auto mb-2 rate-input"
+              formControlName="rate"
+              placeholder="Rate"
+            />
+            <label class="placeholder">Rate</label>
+          </div>
+        </div>
+        @if(reviewError!==''){ <p class="err">{{ reviewError }}</p> }
+        <div class="ms-auto mt-lg-0 mt-md-0 mt-sm-0 mt-2">
+          <button [disabled]="reviewForm.invalid" class="add-review-btn">
+            Add Review
+          </button>
+        </div>
+      </div>
+    </form>
+    @for (review of product?.reviews; track review._id) {
+    <div class="mt-3 review p-3">
+      <div class="d-flex justify-content-between">
+        <p>{{ review?.user?.name }}</p>
+        <p><span class="title">Rate</span> {{ review.rate }}</p>
+      </div>
+      <div><span class="title">Comment </span>{{ review?.comment }}</div>
+    </div>
+    }
   </div>
 </div>

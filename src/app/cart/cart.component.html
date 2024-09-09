@@ -1,7 +1,11 @@
 <div class="cart pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3">
   @if(cartItems.length > 0){
-  <div class="d-flex justify-content-between pt-5">
-    <p class="cart-title">Cart</p>
+  <div class="d-flex justify-content-between pt-5 mb-3">
+    <div class="d-flex">
+      <div class="box"></div>
+      &nbsp;&nbsp;
+      <p class="cart-title">Cart</p>
+    </div>
     <button class="clear-btn" (click)="clearCart()">Clear Cart</button>
   </div>
   <div class="row1 d-flex flex-wrap justify-content-between">
@@ -92,7 +96,10 @@
   </div>
   } @else {
   <div class="cart-empty-div col-lg-5 col-md-6 col-11 m-auto mt-4">
-    <img src="images/empty-cart.png" class="cart-empty-img d-block w-100 mt-4" />
+    <img
+      src="images/empty-cart.png"
+      class="cart-empty-img d-block w-100 mt-4"
+    />
     <p class="cart-empty pt-5 text-center">Cart is Empty, Continue shopping!</p>
   </div>
 

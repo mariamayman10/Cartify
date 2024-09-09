@@ -80,9 +80,14 @@ nav {
   width: fit-content;
 }
 .links-1 {
-  flex-grow: 1; /* This makes the first child take up the remaining space */
+  flex-grow: 1;
 }
-
 .links-2 {
-  white-space: nowrap; /* Ensures the second child’s width fits its content */
+  white-space: nowrap; 
+}
+.dropdown-item{
+  font-size: 14px;
+}
+.exception:hover{
+  scale:  (1);
 }

@@ -1,14 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GlobalService } from './global.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private hostName: string = 'http://localhost:3001';
-  private routeName: string = '/api/v1/cart';
-  constructor(private _HttpClient: HttpClient) {}
+  private hostName: string = '';
+  private routeName: string = '';
+  constructor(
+    private _HttpClient: HttpClient,
+    private _GlobalService: GlobalService
+  ) {
+    this.hostName = this._GlobalService.hostName;
+    this.routeName = this._GlobalService.cartRoute;
+  }
 
   addProductToCart = (product: string): Observable<any> => {
     return this._HttpClient.post(
@@ -39,12 +46,9 @@ export class CartService {
   };
 
   clearCart = (): Observable<any> => {
-    return this._HttpClient.delete(
-      `${this.hostName}${this.routeName}`,
-      {
-        headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
-      }
-    );
+    return this._HttpClient.delete(`${this.hostName}${this.routeName}`, {
+      headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
   };
   getCart = (): Observable<any> => {
     return this._HttpClient.get(`${this.hostName}${this.routeName}`, {
