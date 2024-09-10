@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
 import { SnackbarService } from '../services/snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
@@ -37,7 +38,7 @@ export class ProfileComponent {
       Validators.minLength(6),
       Validators.maxLength(20),
     ]),
-    password: new FormControl(null, [
+    newPassword: new FormControl(null, [
       Validators.required,
       Validators.minLength(6),
       Validators.maxLength(20),
@@ -52,6 +53,7 @@ export class ProfileComponent {
   constructor(
     private _AuthenticationService: AuthenticationService,
     private _UserService: UserService,
+    private _Router: Router,
     private _SnackbarService: SnackbarService
   ) {}
 
@@ -69,6 +71,7 @@ export class ProfileComponent {
     this.subscription = this._UserService.getUser().subscribe({
       next: (res) => {
         this.user = res.data;
+        this.name = this.user.name;
       },
       error: (err) => {
         console.log(err);
@@ -82,7 +85,6 @@ export class ProfileComponent {
     if (this.imageFile) {
       formData.append('image', this.imageFile);
     }
-    console.log(this.name, this.imageFile);
     this._UserService.updateUser(formData).subscribe({
       next: (res) => {
         this.loadUser();
@@ -92,17 +94,22 @@ export class ProfileComponent {
   }
 
   changeUserPassword(formData: FormGroup) {
+    this.currentPasswordError = '';
+    this.passwordError = '';
     this._UserService.changePassword(formData.value).subscribe({
       next: (res) => {
         localStorage.setItem('user', res.token);
         this._AuthenticationService.saveCurrentUser();
-        alert('password changed');
+        this._SnackbarService.showSnackbar('Password changed successfully');
+        this._AuthenticationService.logout();
+        this._Router.navigate(['/signin'])
       },
       error: (err) => {
+        console.log(err);
         err.error.errors.map((error: any) => {
           if (error.path === 'currentPassword') {
             this.currentPasswordError = error.msg;
-          } else if (error.path === 'password') {
+          } else if (error.path === 'confirmPassword') {
             this.passwordError = error.msg;
           }
         });

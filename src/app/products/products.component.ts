@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Pagination } from '../interfaces/pagination';
-import { AuthenticationService } from '../services/authentication.service';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
 import { WishlistService } from '../services/wishlist.service';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { DescriptionPipe } from '../pipes/description.pipe';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../services/snackbar.service';
@@ -12,7 +11,7 @@ import { SnackbarService } from '../services/snackbar.service';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CurrencyPipe, DescriptionPipe],
+  imports: [CurrencyPipe, DescriptionPipe, CommonModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -26,6 +25,7 @@ export class ProductsComponent {
   ) {}
 
   subscription: any;
+  categories: any[] = [];
   imgDomain: string = '';
   products: any[] = [];
   pagination: Pagination = {};

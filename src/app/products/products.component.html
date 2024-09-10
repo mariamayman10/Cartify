@@ -1,6 +1,28 @@
 <div class="products mt-5">
+  <!-- search , sort , filter by category + subcategory -->
+  <div class="px-4 pt-5 d-flex justify-content-end flex-wrap sort-search">
+    <input type="text" class="search-input px-2 py-1" placeholder="Search" />
+    <select id="sort" class="sort-select px-2 py-1" onchange="">
+      <option value="price-asc" class="select-option">
+        Price: Low to High
+      </option>
+      <option value="price-desc" class="select-option">
+        Price: High to Low
+      </option>
+      <option value="popularity" class="select-option">Popularity</option>
+      <option value="rating-asc" class="select-option">
+        Rating: Low to High
+      </option>
+      <option value="rating-desc" class="select-option">
+        Rating: High to Low
+      </option>
+      <option value="newest" class="select-option">Newest Arrivals</option>
+      <option value="name-asc" class="select-option">Name: A-Z</option>
+      <option value="name-desc" class="select-option">Name: Z-A</option>
+    </select>
+  </div>
   <div
-    class="d-flex justify-content-center flex-wrap pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3"
+    class="d-flex justify-content-center flex-wrap pt-3 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3"
   >
     @for(product of products; track product._id){
     <div class="product pt-3 my-2 ms-2">
@@ -19,9 +41,6 @@
       </div>
       <div class="product-info">
         <p class="product-name mt-2 mb-1 px-3">{{ product.name }}</p>
-        <p class="product-description mt-2 mb-1 px-3">
-          {{ product.description | description : 7 }}
-        </p>
         <div class="product-prices d-flex px-3">
           <p class="product-price mb-4">{{ product.price | currency }}</p>
           @if(product.priceAfterDiscount){
@@ -45,11 +64,15 @@
   </div>
   <div class="d-flex justify-content-center align-items-center mb-5">
     @if(pagination.currentPage! > 1){
-    <button class="prev-icon" (click)="changePage(pagination.prev!)"><i class="fas fa-arrow-left"></i></button>
+    <button class="prev-icon" (click)="changePage(pagination.prev!)">
+      <i class="fas fa-arrow-left"></i>
+    </button>
     }
-    <p class="page mx-2">{{pagination.currentPage}}</p>
+    <p class="page mx-2">{{ pagination.currentPage }}</p>
     @if(pagination.currentPage! < pagination.totalPages!){
-    <button class="next-icon" (click)="changePage(pagination.next!)"><i class="fas fa-arrow-right"></i></button>
+    <button class="next-icon" (click)="changePage(pagination.next!)">
+      <i class="fas fa-arrow-right"></i>
+    </button>
     }
   </div>
 </div>

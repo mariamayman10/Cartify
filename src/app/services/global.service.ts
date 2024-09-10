@@ -12,6 +12,8 @@ export class GlobalService {
   orderRoute: string = '/api/v1/order';
   wishlistRoute: string = '/api/v1/wishlist';
   reviewsRoute: string = '/api/v1/review';
+  categoryRoute: string = '/api/v1/category';
+  subcategoryRoute: string = '/api/v1/subcategory';
   userRoute: string = '/api/v1/user';
   productImg: string = `${this.hostName}/products/`;
   userImage: string = `${this.hostName}/users/`;
