@@ -48,7 +48,7 @@
             </div>
             <div class="d-flex">
               <i
-                class="fas fa-trash me-3"
+                class="fa-solid fa-trash-can me-3 trash-icon"
                 (click)="removeProductFromCart(item._id)"
               ></i>
               <div class="product-quantity d-flex">
@@ -78,19 +78,46 @@
         <p class="cart-subtotal">
           Cart Subtotal: {{ cart.totalPrice | currency }}
         </p>
+        @if(cart.totalPriceAfterDiscount !== undefined){
+        <p class="cart-total">
+          Cart Subtotal After Discount:
+          {{ cart.totalPriceAfterDiscount | currency }}
+          <span class="coupon-code">{{codeInput.value}}</span>
+        </p>
+        }
         <p class="cart-fees">Tax fees: {{ 100 | currency }}</p>
-        <p class="cart-total mb-0">
+        @if (cart.totalPriceAfterDiscount !== undefined) {
+        <p class="cart-total">
+          Total Price: {{ cart.totalPriceAfterDiscount + 100 | currency }}
+        </p>
+        }@else {
+        <p class="cart-total">
           Total Price: {{ cart.totalPrice + 100 | currency }}
         </p>
-        <div class="coupon pt-0 mt-0">
-          <input
-            type="text"
-            placeholder="Coupon code"
-            class="cart-coupon-input px-2 me-lg-2 me-1"
-          />
-          <button class="coupon-add">Add</button>
-        </div>
-        <button class="proceed-btn">Procced to checkout</button>
+        }
+
+        <form
+          [formGroup]="applyCouponForm"
+          (ngSubmit)="applyCoupon(applyCouponForm)"
+        >
+          <div class="d-flex flex-wrap">
+            <input
+            #codeInput
+              type="text"
+              formControlName="code"
+              placeholder="Coupon code"
+              [value]="coupon"
+              class="cart-coupon-input px-2 me-lg-2 me-1"
+            />
+            <button [disabled]="applyCouponForm.invalid"  class="coupon-add">
+              Add
+            </button>
+          </div>
+        </form>
+        @if(couponError !== ''){
+        <p class="err text-danger mt-1">{{ couponError }}</p>
+        }
+        <button class="proceed-btn" (click)="checkout()">Procced to checkout</button>
       </div>
     </div>
   </div>

@@ -7,6 +7,11 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {
+    path: 'myProfile',
+    loadComponent: () =>
+      import('./profile/profile.component').then((m) => m.ProfileComponent),
+  },
+  {
     path: 'products',
     loadComponent: () =>
       import('./products/products.component').then((m) => m.ProductsComponent),
@@ -23,6 +28,27 @@ export const routes: Routes = [
     canActivate: [authenticationGuard],
     loadComponent: () =>
       import('./cart/cart.component').then((m) => m.CartComponent),
+  },
+  {
+    path: 'placeOrder',
+    canActivate: [authenticationGuard],
+    loadComponent: () =>
+      import('./place-order/place-order.component').then(
+        (m) => m.PlaceOrderComponent
+      ),
+  },
+  {
+    path: 'myOrders',
+    canActivate: [authenticationGuard],
+    loadComponent: () =>
+      import('./orders/orders.component').then((m) => m.OrdersComponent),
+  },
+  {
+    path: 'order/:id',
+    loadComponent: () =>
+      import('./order-details/order-details.component').then(
+        (m) => m.OrderDetailsComponent
+      ),
   },
   {
     path: 'wishlist',

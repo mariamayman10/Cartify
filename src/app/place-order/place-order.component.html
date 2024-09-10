@@ -1,0 +1,95 @@
+<div class="place-order pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3">
+  <div class="d-flex pt-5">
+    <div class="box"></div>
+    &nbsp;&nbsp;
+    <p class="place-order-title">Place Order</p>
+  </div>
+  <div class="row1 d-flex flex-wrap justify-content-between">
+    <div class="cart-products col-lg-8 col-md-8">
+      @for(item of cartItems; track item._id){
+      <div class="cart-item d-flex col-12 p-3">
+        <div class="product-img">
+          <img
+            [src]="imgDomain + item.product.cover"
+            [alt]="item.product.name"
+            class="img me-3"
+          />
+        </div>
+        <div class="product-info flex-grow-1">
+          <div
+            class="product-row1 d-flex justify-content-between mb-2 flex-wrap"
+          >
+            <p class="product-name m-0 p-0">{{ item.product.name }}</p>
+            <p class="product-price me-2">
+              <span class="sp"> Price</span>
+              {{ item.price | currency }}
+            </p>
+          </div>
+          <div class="product-row2 d-flex justify-content-between flex-wrap">
+            <p class="product-cat me-2">
+              <span class="sp">Category</span>
+              {{ item.product.category.name }}
+            </p>
+            <p class="product-quantity">
+              <span class="sp">Quantity</span> {{ item.quantity }}
+            </p>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="cart-summary-cont col-lg-4 col-md-4 container">
+      <div class="cart-summary p-lg-4 p-3">
+        <p class="cart-summary-title">Order Summary</p>
+        <p class="cart-subtotal">
+          Order Subtotal: {{ cart.totalPrice | currency }}
+        </p>
+        @if(cart.totalPriceAfterDiscount !== undefined){
+        <p class="cart-total">
+          Order Subtotal After Discount:
+          {{ cart.totalPriceAfterDiscount | currency }}
+        </p>
+        }
+        <p class="cart-fees">Tax fees: {{ 100 | currency }}</p>
+        @if (cart.totalPriceAfterDiscount !== undefined) {
+        <p class="cart-total">
+          Total Price: {{ cart.totalPriceAfterDiscount + 100 | currency }}
+        </p>
+        }@else {
+        <p class="cart-total">
+          Total Price: {{ cart.totalPrice + 100 | currency }}
+        </p>
+        } @if(userAddresses.length > 0){
+        <form [formGroup]="addressForm">
+          <label for="address" class="address me-2">Select Address</label>
+          <select
+            formControlName="address"
+            id="address"
+            class="address-select px-2"
+            required
+          >
+            @for (address of userAddresses; track address._id) {
+            <option [ngValue]="address" class="address-option">
+              {{ address.apartmentNo }} {{ address.street }},
+              {{ address.state }}, {{ address.city }}
+            </option>
+            }
+          </select>
+        </form>
+        <button
+          [disabled]="addressForm.invalid"
+          class="place-order-btn"
+          (click)="createOrder()"
+        >
+          Place Order
+        </button>
+        }@else {
+        <p class="err text-danger">
+          You can't place the order <br />
+          Add address first
+        </p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

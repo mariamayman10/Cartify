@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WishlistService } from '../services/wishlist.service';
 import { CurrencyPipe } from '@angular/common';
 import { DescriptionPipe } from '../pipes/description.pipe';
-import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -14,11 +14,11 @@ import { Router } from '@angular/router';
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.scss',
 })
-export class WishlistComponent implements OnInit {
+export class WishlistComponent implements OnInit , OnDestroy{
   constructor(
     private _AuthenticationService: AuthenticationService,
     private _WishlistService: WishlistService,
-    private _ProductsService: ProductsService,
+    private _GlobalService: GlobalService,
     private _CartService: CartService,
     private _Router: Router
   ) {}
@@ -35,8 +35,11 @@ export class WishlistComponent implements OnInit {
 
   ngOnInit(): void {
     this._AuthenticationService.checkToken();
-    this.imgDomain = this._ProductsService.imgDomain;
+    this.imgDomain = this._GlobalService.productImg;
     this.loadWishlist();
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   addProductToCart(product: string) {

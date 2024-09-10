@@ -1,0 +1,83 @@
+<div class="my-orders pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3">
+  @if(orders.length > 0){
+  <div class="d-flex pt-5">
+    <div class="box"></div>
+    &nbsp;&nbsp;
+    <p class="my-orders-title">My Orders</p>
+  </div>
+  <div class="my-orders col-lg-8 col-md-8 m-auto">
+    @for(order of orders; track order._id){
+    <div class="order col-12 p-4">
+      <p class="order-r1 order-id">
+        <span class="sp">Order Id</span> &nbsp;{{ order._id }}
+      </p>
+      <div class="order-r2 d-flex flex-wrap justify-content-between mb-1">
+        <p class="order-placed-date mb-0">
+          <span class="sp">Placed Date</span> &nbsp;{{ order.createdAt | date }}
+        </p>
+        <p class="order-price mb-0">
+          <span class="sp">Total Price</span> &nbsp;{{
+            order.totalPrice + order.taxPrice | currency
+          }}
+        </p>
+      </div>
+      <div class="order-r3 d-flex flex-wrap justify-content-between">
+        <div class="order-status d-flex justify-content-between">
+          @if(order.isDelivered){
+          <p class="delivered">
+            <span class="sp">Status</span>&nbsp; Delivered
+          </p>
+          <p>
+            <span class="sp">Delivery date</span
+            >{{ order.DeliveredDate | date }}
+          </p>
+          }@else {
+          <p class="pending"><span class="sp">Status</span>&nbsp; Pending</p>
+          }
+        </div>
+        <div class="order-payment d-flex justify-content-between">
+          @if(order.isPaid){
+          <p class="yes"><span class="sp">Paid</span>&nbsp; Yes</p>
+          <p>
+            <span class="sp">Paid date</span>&nbsp;{{ order.PaidDate | date }}
+          </p>
+          }@else {
+          <p class="no"><span class="sp">Paid</span>&nbsp; No</p>
+          }
+        </div>
+      </div>
+      <div
+        class="order-r4 d-flex justify-content-between align-items-center flex-wrap"
+      >
+        <div class="products-imgs d-flex">
+          <img
+            *ngFor="let item of order.cartItems.slice(0, 3)"
+            [src]="imgDomain + item.product.cover"
+            class="product-img me-2"
+          />
+          @if(order.cartItems.length > 3){
+          <div class="extra-images-box ms-2 text-center">
+            +{{ order.cartItems.length - 3 }}
+          </div>
+          }
+        </div>
+        <a (click)="getOrder(order._id)"
+          ><i class="fa-solid fa-eye mt-1"></i
+        ></a>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="my-orders-empty-div col-lg-5 col-md-6 col-11 m-auto mt-4">
+    <img
+      src="images/no-orders.png"
+      class="my-orders-empty-img d-block w-100 mt-4"
+    />
+    <p class="my-orders-empty pt-5 text-center">
+      No orders, Create your first one!
+    </p>
+  </div>
+
+  }
+</div>

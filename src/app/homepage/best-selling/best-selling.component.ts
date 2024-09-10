@@ -8,10 +8,10 @@ import { DescriptionPipe } from '../../pipes/description.pipe';
 import { Router, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { ProductsService } from '../../services/products.service';
-import { AuthenticationService } from '../../services/authentication.service';
 import { register } from 'swiper/element/bundle';
 import { CartService } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
+import { SnackbarService } from '../../services/snackbar.service';
 register();
 
 @Component({
@@ -40,7 +40,8 @@ export class BestSellingComponent implements OnInit, OnDestroy {
     private _ProductsService: ProductsService,
     private _CartService: CartService,
     private _WishlistService: WishlistService,
-    private _Router: Router
+    private _Router: Router,
+    private _SnackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -59,10 +60,24 @@ export class BestSellingComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
   addProductToCart(product: string) {
-    this._CartService.addProductToCart(product).subscribe((res) => {});
+    this._CartService.addProductToCart(product).subscribe({
+      next: (res) => {
+        this._SnackbarService.showSnackbar('Product added to cart');
+      },
+      error: () => {
+        this._SnackbarService.showSnackbar('Sign in first');
+      },
+    });
   }
   addProductToWishlist(product: string) {
-    this._WishlistService.addProductToWishlist(product).subscribe((res) => {});
+    this._WishlistService.addProductToWishlist(product).subscribe({
+      next: (res) => {
+        this._SnackbarService.showSnackbar('Product added to wishlist');
+      },
+      error: () => {
+        this._SnackbarService.showSnackbar('Sign in first');
+      },
+    });
   }
   viewProductDetails(productId: string) {
     this._Router.navigate([`/products/${productId}`]);

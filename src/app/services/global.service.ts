@@ -9,7 +9,10 @@ export class GlobalService {
   authenticationRoute: string = '/api/v1/auth';
   productsRoute: string = '/api/v1/products';
   cartRoute: string = '/api/v1/cart';
+  orderRoute: string = '/api/v1/order';
   wishlistRoute: string = '/api/v1/wishlist';
   reviewsRoute: string = '/api/v1/review';
+  userRoute: string = '/api/v1/user';
   productImg: string = `${this.hostName}/products/`;
+  userImage: string = `${this.hostName}/users/`;
 }

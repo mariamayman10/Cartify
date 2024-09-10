@@ -1,0 +1,44 @@
+<div class="profile pt-5 px-lg-5 px-md-4 px-sm-3 px-3 mb-5 mt-3">
+  <div class="d-flex pt-5 mb-3">
+    <div class="box"></div>
+    &nbsp;&nbsp;
+    <p class="profile-title">Profile</p>
+  </div>
+  <div class="update-info p-4 col-lg-6 col-md-7 col-sm-9 col-12 m-auto">
+    <div class="d-flex justify-content-between flex-wrap">
+      <div class="user-img-div me-3">
+        @if(user.image){
+        <img [src]="userImage + user.image" class="user-img" />
+        } @else {
+        <p class="no-pp">No Profile Picture</p>
+        }
+      </div>
+      <div class="info flex-grow-1">
+        <p class="user-email mb-2">
+          <span class="sp">Email</span> {{ user.email }}
+        </p>
+        <div>
+          <span class="sp">Name</span>
+          <input
+            class="name-input mb-2"
+            type="text"
+            (change)="getName(userName.value)"
+            #userName
+            [value]="user.name"
+          />
+        </div>
+
+        <input
+          class="custom-file-input"
+          type="file"
+          accept="image/*"
+          (change)="getFile($event)"
+        />
+      </div>
+    </div>
+
+    <button class="update-btn" (click)="updateUser()">Update</button>
+  </div>
+
+  <div class="change-password"></div>
+</div>

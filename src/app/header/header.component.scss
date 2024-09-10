@@ -58,7 +58,6 @@ nav {
 .selected-item:hover {
   scale: (1);
 }
-
 .links-1,
 .links-2 {
   list-style: none;
@@ -87,7 +86,19 @@ nav {
 }
 .dropdown-item{
   font-size: 14px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+.dropdown-item:hover{
+  scale: (1.1);
+  background-color: transparent;
 }
 .exception:hover{
   scale:  (1);
+}
+.dropdown-menu{
+  padding-right: 100px;
 }

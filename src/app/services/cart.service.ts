@@ -45,11 +45,18 @@ export class CartService {
     );
   };
 
+  applyCoupon = (formData: any):Observable<any> =>{
+    return this._HttpClient.put(`${this.hostName}${this.routeName}/applyCoupon`, 
+      formData, 
+      { headers: { authorization: `Bearer ${localStorage.getItem('token')}` }});
+  };
+
   clearCart = (): Observable<any> => {
     return this._HttpClient.delete(`${this.hostName}${this.routeName}`, {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
     });
   };
+
   getCart = (): Observable<any> => {
     return this._HttpClient.get(`${this.hostName}${this.routeName}`, {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` },

@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ReviewsService } from '../services/reviews.service';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-product-details',
@@ -26,7 +27,8 @@ export class ProductDetailsComponent implements OnInit {
     private _ProductsService: ProductsService,
     private _WishlistService: WishlistService,
     private _CartService: CartService,
-    private _ReviewsService: ReviewsService
+    private _ReviewsService: ReviewsService,
+    private _SnackbarService: SnackbarService
   ) {}
 
   subscription: any;
@@ -71,15 +73,30 @@ export class ProductDetailsComponent implements OnInit {
       });
   }
   addProductToWishlist() {
-    this._WishlistService.addProductToWishlist(this.id).subscribe((res) => {});
+    this._WishlistService.addProductToWishlist(this.id).subscribe({
+      next: (res) => {
+        this._SnackbarService.showSnackbar('Product added to wishlist');
+      },
+      error: () => {
+        this._SnackbarService.showSnackbar('Sign in first');
+      },
+    });
   }
   addProdutToCart() {
-    this._CartService.addProductToCart(this.id).subscribe((res) => {});
+    this._CartService.addProductToCart(this.id).subscribe({
+      next: (res) => {
+        this._SnackbarService.showSnackbar('Product added to cart');
+      },
+      error: () => {
+        this._SnackbarService.showSnackbar('Sign in first');
+      },
+    });
   }
   addReview(productId: string, formData: FormGroup) {
     console.log(formData);
     this._ReviewsService.addReview(productId, formData.value).subscribe({
       next: (res) => {
+        this._SnackbarService.showSnackbar('Review added!');
         this.loadProduct();
       },
       error: (err) => {
@@ -90,7 +107,7 @@ export class ProductDetailsComponent implements OnInit {
             }
           });
         } else {
-          this.reviewError = `Signin first to add a review`;
+          this._SnackbarService.showSnackbar('Sign in first');
         }
       },
     });
